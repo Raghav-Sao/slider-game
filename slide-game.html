@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slide Game</title>
+    <style>
+      #inner {
+        width: 500px;
+        border: 1px solid #ccc;
+        height: 500px;
+        margin: auto;
+        position: relative;
+      }
+      #bat {
+        width: 100px;
+        height: 20px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: #ddd;
+      }
+      #ball {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #bbb;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+    #score {
+      font-style: 15px;
+      font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+  <div id="outer" onmousemove="moveBat(event)">
+    <div>Scroe: <span id="score"></span></div>
+    <div id="inner" >
+      <div id="bat">
+        
+      </div>
+      <div id="ball">
+        
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var inner = getById('inner'),
+      innerLeft = inner.offsetLeft,
+      innerRight = inner.offsetLeft + inner.offsetWidth,
+      bat = getById('bat'),
+      ball = getById('ball')
+      ballHDirection = 'right',
+      ballVDirection = 'left',
+      interval = 400,
+      score = 0;
+
+  function getById(id) {
+    return document.getElementById(id);
+  }
+
+  function getBatDirection(ball, batLeft, batRight, ballLeft, ballRight, ballHDirection) {
+    var isLeftCornerHit = ballRight >= batLeft && ballRight <= batLeft + 20,
+        isRightCornerHit = ballLeft >= batRight-20 && ballLeft <= batRight;
+    if(isLeftCornerHit) {
+      score += 10;
+      return 'left';
+    } else if(isRightCornerHit) {
+      score += 10;
+      return 'right';
+    };
+    score += 10;
+    return ballHDirection
+  }
+
+  function moveBat(event) {
+    var mouseX = event.pageX-innerLeft;
+        validXMove = mouseX >= 0 && mouseX <= inner.offsetWidth - bat.offsetWidth;
+    if(validXMove) {
+      bat.style.left = mouseX + 'px';
+    } else if(mouseX < 0) {
+      bat.style.left = '0px';
+    } else {
+      bat.style.left = inner.offsetWidth - bat.offsetWidth + 'px';
+    }
+  }
+
+  function moveBall() {
+    var inner = getById('inner'),
+      innerLeft = inner.offsetLeft,
+      innerRight = inner.offsetLeft + inner.offsetWidth,
+      bat = getById('bat'),
+      batLeft = bat.offsetLeft,
+      ball = getById('ball'),
+      ballTop = ball.offsetTop,
+      ballLeft = ball.offsetLeft,
+      ballRight = ball.offsetLeft+ball.offsetWidth,
+      canBallMoveDown = ball.offsetTop + ball.offsetWidth < inner.offsetHeight -2,
+      isHitByBat = ball.offsetLeft + ball.offsetWidth >= batLeft && ball.offsetLeft <= batLeft + bat.offsetWidth && 
+      ball.offsetTop + ball.offsetHeight >= bat.offsetTop && ball.offsetTop + ball.offsetHeight <= bat.offsetTop + bat.offsetHeight;
+
+      if(!canBallMoveDown) {
+        alert("The End");
+        stopGame();
+        return;
+      }
+
+      ballVDirection = ball.offsetTop === 0 ? 'down' : ballVDirection;
+      ballVDirection = isHitByBat ? 'up' : ballVDirection;
+
+      ballHDirection = ball.offsetLeft === 0 ? 'right' : ballHDirection;
+      ballHDirection = ballRight >= inner.offsetWidth - 2 ? 'left' : ballHDirection;
+      ballHDirection = isHitByBat ? getBatDirection(ball, batLeft, batLeft+bat.offsetWidth, ballLeft, ballRight, ballHDirection ) : ballHDirection;
+
+      if(ballVDirection === 'down') {
+        ballTop = ballTop + 10;
+        ballTop = ballTop > 480 ? 480 : ballTop;
+      }
+
+      if(ballHDirection === 'left') {
+        ballLeft = ballLeft - 10;
+        ballLeft = ballLeft < 0 ? 0 : ballLeft;
+      }
+
+      if(ballHDirection === 'right'){
+        ballLeft = ballLeft + 10;
+        ballLeft = ballLeft > 480 ? 480 : ballLeft;
+      }
+
+      if(ballVDirection === 'up') {
+          ballTop = ballTop - 10;
+          ballTop = ballTop < 0 ? 0 : ballTop;
+      }
+
+      ball.style.top = ballTop + 'px';
+      ball.style.left = ballLeft + 'px';
+      getById('score').innerHTML = score;
+  }
+
+  function stopGame() {
+    clearInterval(startGame);
+  }
+
+  var startGame = setInterval(moveBall, 20);
+</script>
+</html>
