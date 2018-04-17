@@ -1,0 +1,99 @@
+body {
+  background: url('http://rgv/src/images/bg1.jpeg');
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+  margin: 0px;
+  width: 100%;
+}
+#ball {
+  background: white;
+  border-radius: 50%;
+  height: 20px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 20px;
+}
+
+#bat {
+  background: white;
+  border-radius: 2px;
+  bottom: 0;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100px;
+  z-index: 1;
+}
+#inner {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  height: 500px;
+  margin: auto;
+  position: relative;
+  width: 500px;
+}
+#score-container {
+  color: white;
+  font-style: 15px;
+  font-weight: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+}
+#popup {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  position: fixed;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: none;
+}
+#popup-content {
+  width: 300px;
+  color: #ccc;
+  background: white;
+  margin: auto;
+  margin-top: 200px;
+  padding: 70px 0;
+  text-align: center;
+  font-weight: 20px;
+}
+.text-center {
+  text-align: center;
+}
+button {
+  min-width: 100px;
+  min-height: 40px;
+  border: 1px solid transparent;
+}
+button:hover {
+  cursor: pointer;
+}
+.button:active,
+.button:focus {
+  outline: 0;
+}
+.bg-success {
+  background: #27ae60;
+}
+.bg-error {
+  background: #ffb300;
+}
+.c-success {
+  color: #27ae60;
+}
+.c-error {
+  color: #ffb300;
+}
+.m-10 {
+  margin: 10px;
+}
