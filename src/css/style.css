@@ -1,5 +1,5 @@
 body {
-  background: url('http://rgv/src/images/bg1.jpeg');
+  background: url('../images/body-bg.jpeg');
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
