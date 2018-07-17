@@ -124,6 +124,7 @@ getById('re-start').addEventListener('click', reStartGame);
 function reStartGame() {
   bat.style.left = ball.style.top = score = 0;
   ball.style.left = positions[getIntRandomNumber(10)] + 'px';
+  alert(ball.style.left);
   getById('popup').style.display = 'none';
   gameStatus = setInterval(moveBall, 20);
 }

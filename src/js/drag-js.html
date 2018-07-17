@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>drag-experiment</title>
+  <style>
+    div {
+      width: 100px;
+      height: 50px;
+      border: 1px solid #ccc;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="div">1</div>
+  <div class="div">2</div>
+  <div class="div">3</div>
+  <div class="div">4</div>
+  <div class="div">5</div>
+  <script>
+    document.getElementsByClassName('div')[0].onmousedown = function(event,b){
+      console.log(event);
+      
+      document.getElementsByClassName('div')[0].onmousedown = function() {
+        var taget = document.getElementsByClassName('div');
+        target.style.left = event.clientX + 'px';
+        target.style.top = event.clientY + 'px';
+      }
+    }
+
+  </script>
+</body>
+</html>
